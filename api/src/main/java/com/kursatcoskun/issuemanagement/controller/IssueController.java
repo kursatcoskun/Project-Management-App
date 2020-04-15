@@ -3,6 +3,7 @@ package com.kursatcoskun.issuemanagement.controller;
 import com.kursatcoskun.issuemanagement.dto.IssueDetailDto;
 import com.kursatcoskun.issuemanagement.dto.IssueDto;
 import com.kursatcoskun.issuemanagement.dto.IssueInputDto;
+import com.kursatcoskun.issuemanagement.entities.IssueStatus;
 import com.kursatcoskun.issuemanagement.services.impl.IssueServiceImpl;
 import com.kursatcoskun.issuemanagement.util.*;
 import io.swagger.annotations.Api;
@@ -12,10 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.List;
 
 @RestController
 @RequestMapping(ApiPaths.IssueCtrl.CTRL)
 @Api(value = ApiPaths.IssueCtrl.CTRL, description = "Issue APIs")
+@CrossOrigin
 public class IssueController {
 
     private final IssueServiceImpl issueServiceImpl;
@@ -66,5 +70,12 @@ public class IssueController {
             return ResponseEntity.badRequest().body(new UtilResponse<IssueDto>(null, new ProcessResult("400", ResponseMessage.ERROR)));
         }
         return ResponseEntity.ok((new UtilResponse<IssueDto>(null, new ProcessResult("200", ResponseMessage.SUCCESS))));
+    }
+
+    @GetMapping("/statuses")
+    @ApiOperation(value = "Get All Issue Statuses Operation", response = String.class, responseContainer = "List")
+    public ResponseEntity<UtilResponse<List<IssueStatus>>> getIssueStatuses() {
+        List<IssueStatus> data = Arrays.asList(IssueStatus.values());
+        return ResponseEntity.ok(new UtilResponse<List<IssueStatus>>(data, new ProcessResult("200", ResponseMessage.SUCCESS)));
     }
 }

@@ -1,6 +1,7 @@
 package com.kursatcoskun.issuemanagement.controller;
 
 import com.kursatcoskun.issuemanagement.dto.UserDto;
+import com.kursatcoskun.issuemanagement.entities.IssueStatus;
 import com.kursatcoskun.issuemanagement.services.impl.UserServiceImpl;
 import com.kursatcoskun.issuemanagement.util.ApiPaths;
 import com.kursatcoskun.issuemanagement.util.ProcessResult;
@@ -12,11 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
 @RequestMapping(ApiPaths.UserCtrl.CTRL)
 @Api(value = ApiPaths.UserCtrl.CTRL, description = "User APIs")
+@CrossOrigin
 public class UserController {
 
     private final UserServiceImpl userServiceImpl;
@@ -45,4 +48,5 @@ public class UserController {
         UserDto createdUser = userServiceImpl.save(userDto);
         return ResponseEntity.ok(new UtilResponse<UserDto>(null, new ProcessResult("200", ResponseMessage.SUCCESS)));
     }
+
 }
