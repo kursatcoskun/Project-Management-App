@@ -4,4 +4,8 @@ export namespace Project {
     projectName: string;
     projectCode: string;
   }
+  export class ProjectState {
+    createProjectResponse: ProjectWrapper;
+    projects: ProjectWrapper[];
+  }
 }
