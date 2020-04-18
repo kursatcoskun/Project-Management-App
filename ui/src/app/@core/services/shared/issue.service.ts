@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Observable } from 'rxjs';
-import { Generics, Issue, Project } from '../../models';
+import { Generics, Issue } from '../../models';
 import GenericResponse = Generics.GenericResponse;
 
 @Injectable({
@@ -9,7 +9,6 @@ import GenericResponse = Generics.GenericResponse;
 })
 export class IssueService {
   private ISSUE_PATH = '/issue';
-  private ISSUE_PAGINATION = this.ISSUE_PATH + '/pagination';
   private ISSUE_GET_BY_ID = this.ISSUE_PATH + '/getIssueById';
   private ISSUE_CREATE = this.ISSUE_PATH + '/CreateIssue';
   private ISSUE_UPDATE = this.ISSUE_PATH + '/UpdateIssue';

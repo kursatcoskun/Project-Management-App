@@ -6,7 +6,7 @@ import { Generics, Issue } from '../../@core/models';
 import { GetAllPageableIssues } from '../../@core/state/actions';
 
 @Component({
-  selector: 'issue',
+  selector: 'ngx-issue',
   templateUrl: './issue.component.html',
   styleUrls: ['./issue.component.scss'],
   encapsulation: ViewEncapsulation.None,

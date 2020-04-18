@@ -21,10 +21,10 @@ import {
 } from '@nebular/theme';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import {IssueState, ProjectState} from './@core/state';
+import { IssueState, ProjectState } from './@core/state';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import {NgxDatatableModule} from "@swimlane/ngx-datatable";
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 export const createTranslateLoader = (http: HttpClient) => {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

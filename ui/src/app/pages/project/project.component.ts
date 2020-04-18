@@ -3,11 +3,10 @@ import { Generics, Project } from '../../@core/models';
 import { Select, Store } from '@ngxs/store';
 import { ProjectState } from '../../@core/state';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
 import { GetAllPageableProjects } from '../../@core/state/actions';
 
 @Component({
-  selector: 'project',
+  selector: 'ngx-project',
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.scss'],
   encapsulation: ViewEncapsulation.None,
