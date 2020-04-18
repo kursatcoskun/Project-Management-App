@@ -11,8 +11,11 @@ export class ProjectService {
 
   constructor(private apiService: ApiService) {}
 
-  getProjectsByPagination(page): Observable<Generics.GenericResponse<any>> {
-    return this.apiService.get(this.PROJECT_PATH + 'pagination', page);
+  getProjectsByPagination(
+    page: number,
+    itemSizePerPage: number,
+  ): Observable<Generics.GenericResponse<Project.ProjectPaged>> {
+    return this.apiService.get(`${this.PROJECT_PATH}/getAllByPagination?page=${page}&size=${itemSizePerPage}`);
   }
 
   getAllProjects(): Observable<Generics.GenericResponse<Project.ProjectWrapper>> {

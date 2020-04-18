@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
-
 // themes - our custom or/and out of the box themes
 @import 'themes';
 
@@ -30,4 +29,10 @@
   @include ngx-pace-theme();
 
   @include nb-overrides();
+
 };
+
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/themes/bootstrap.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';

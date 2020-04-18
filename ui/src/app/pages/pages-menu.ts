@@ -10,13 +10,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Projects',
     icon: 'grid-outline',
-    link: '/pages/projects',
+    link: '/pages/project',
     home: false,
   },
   {
     title: 'Issues',
     icon: 'cube-outline',
-    link: '/pages/issues',
+    link: '/pages/issue',
     home: false,
   },
 ];

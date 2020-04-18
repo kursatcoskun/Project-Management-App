@@ -1,4 +1,4 @@
-import { Project } from '../../models';
+import { Generics, Project } from '../../models';
 
 export class CreateProject {
   static readonly type = '[Project] Create';
@@ -8,6 +8,11 @@ export class CreateProject {
 export class GetAllProjects {
   static readonly type = '[Project] Get All Projects';
   constructor() {}
+}
+
+export class GetAllPageableProjects {
+  static readonly type = '[Project] Get All Pageable Projects';
+  constructor(public payload: { page: number; itemSizePerPage: number }) {}
 }
 
 export class GetProjectById {

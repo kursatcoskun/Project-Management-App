@@ -6,13 +6,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {
-  NbChatModule,
   NbDatepickerModule,
   NbDialogModule,
   NbMenuModule,
@@ -22,7 +21,14 @@ import {
 } from '@nebular/theme';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { ProjectState } from './@core/state';
+import {IssueState, ProjectState} from './@core/state';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import {NgxDatatableModule} from "@swimlane/ngx-datatable";
+
+export const createTranslateLoader = (http: HttpClient) => {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+};
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,7 +46,15 @@ import { ProjectState } from './@core/state';
     NbToastrModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     CoreModule.forRoot(),
-    NgxsModule.forRoot([ProjectState]),
+    NgxDatatableModule,
+    NgxsModule.forRoot([ProjectState, IssueState]),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient],
+      },
+    }),
   ],
   bootstrap: [AppComponent],
 })

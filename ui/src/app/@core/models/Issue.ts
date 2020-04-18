@@ -1,5 +1,6 @@
-import {Project} from './Project';
-import {User} from './User';
+import { Project } from './Project';
+import { User } from './User';
+import { Generics } from './Generics';
 
 export namespace Issue {
   export interface IssueWrapper {
@@ -10,6 +11,22 @@ export namespace Issue {
     issueStatus: IssueStatus;
     assignee: User.UserWrapper;
     project: Project.ProjectWrapper;
+  }
+
+  export interface IssueState {
+    createIssueResponse: IssueWrapper;
+    issuesResponse: Generics.GenericResponse<IssueWrapper>;
+    issuePagination: Generics.GenericResponse<IssuePaged>;
+    selectedIssue: IssueWrapper;
+  }
+
+  export interface IssuePaged {
+    number: number;
+    size: number;
+    sort: any;
+    totalPages: any;
+    totalElements: any;
+    content: IssueWrapper;
   }
 
   export interface IssueDetail {

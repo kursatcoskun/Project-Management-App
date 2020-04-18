@@ -7,15 +7,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { PagesRoutingModule } from './pages-routing.module';
 
 @NgModule({
-  imports: [
-    PagesRoutingModule,
-    ThemeModule,
-    NbMenuModule,
-    DashboardModule,
-  ],
-  declarations: [
-    PagesComponent,
-  ],
+  imports: [PagesRoutingModule, ThemeModule, NbMenuModule, DashboardModule],
+  declarations: [PagesComponent],
 })
-export class PagesModule {
-}
+export class PagesModule {}

@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api.service';
 import { Observable } from 'rxjs';
-import { Generics, Issue } from '../../models';
+import { Generics, Issue, Project } from '../../models';
 import GenericResponse = Generics.GenericResponse;
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class IssueService {
   private ISSUE_PATH = '/issue';
   private ISSUE_PAGINATION = this.ISSUE_PATH + '/pagination';
@@ -16,8 +18,8 @@ export class IssueService {
 
   constructor(private apiService: ApiService) {}
 
-  getAllByPagination(page): Observable<GenericResponse<any>> {
-    return this.apiService.get(this.ISSUE_PAGINATION, page);
+  getAllByPagination(page: number, itemSizePerPage: number): Observable<Generics.GenericResponse<Issue.IssuePaged>> {
+    return this.apiService.get(`${this.ISSUE_PATH}/getAllByPagination?page=${page}&size=${itemSizePerPage}`);
   }
 
   getIssueById(id: number): Observable<GenericResponse<Issue.IssueWrapper>> {

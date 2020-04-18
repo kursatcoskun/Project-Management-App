@@ -28,7 +28,7 @@ public class IssueController {
         this.issueServiceImpl = issueServiceImpl;
     }
 
-    @GetMapping("getAllByPagination")
+    @GetMapping("/getAllByPagination")
     @ApiOperation(value = "Get By Pagination Operation", response = UtilResponse.class)
     public ResponseEntity<UtilResponse<TPage<IssueDto>>> getById(Pageable pageable) {
         TPage<IssueDto> data = issueServiceImpl.getAllPageable(pageable);

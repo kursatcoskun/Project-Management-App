@@ -1,0 +1,35 @@
+<div
+  *ngIf="{
+    pageIssue: (pageIssues$ | async)?.data
+  } as data"
+>
+  <div class="row">
+    <nb-card class="col-md-12">
+      <nb-card-header>{{ 'Issue List' | translate }}</nb-card-header>
+      <nb-card-body>
+        <button (click)="deneme()">SET PAGE ITEM SIZE</button>
+        <ngx-datatable
+          class="bootstrap"
+          [rows]="data.pageIssue?.content"
+          [loadingIndicator]="!data.pageIssue"
+          [columns]="cols"
+          [columnMode]="'force'"
+          [headerHeight]="50"
+          [footerHeight]="50"
+          [rowHeight]="'auto'"
+          [externalPaging]="true"
+          [count]="data.pageIssue?.totalElements"
+          [offset]="data.pageIssue?.number"
+          [limit]="data.pageIssue?.size"
+          (page)="setPage($event)"
+        >
+        </ngx-datatable>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<ng-template #ActionTemplate let-row="row">
+  <button class="btn btn-sm btn-danger">Delete</button>
+  <button class="ml-1 btn btn-sm btn-warning">Edit</button>
+</ng-template>

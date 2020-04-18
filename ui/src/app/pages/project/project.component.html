@@ -1,0 +1,36 @@
+<div
+  *ngIf="{
+    pageProject: (pageProjects$ | async).data
+  } as data"
+>
+  <div class="row">
+    <nb-card class="col-md-12">
+      <nb-card-header>{{ 'Project List' | translate }}</nb-card-header>
+      <nb-card-body>
+        <ngx-datatable
+          class="bootstrap"
+          [rows]="data.pageProject?.content"
+          [loadingIndicator]="!data.pageProject"
+          [columns]="cols"
+          [columnMode]="'force'"
+          [headerHeight]="50"
+          [footerHeight]="50"
+          [rowHeight]="'auto'"
+          [externalPaging]="true"
+          [count]="data.pageProject?.totalElements"
+          [offset]="data.pageProject?.number"
+          [limit]="data.pageProject?.size"
+          (page)="setPage($event)"
+        >
+        </ngx-datatable>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+</div>
+
+<ng-template #ActionTemplate let-row="row">
+  <button class="btn btn-sm btn-danger">Delete</button>
+  <button class="ml-1 btn btn-sm btn-warning">Edit</button>
+</ng-template>
+

@@ -1,6 +1,6 @@
-export namespace User{
+export namespace User {
   export interface UserWrapper {
-    id:number;
-    nameSurname:string;
+    id: number;
+    nameSurname: string;
   }
 }
