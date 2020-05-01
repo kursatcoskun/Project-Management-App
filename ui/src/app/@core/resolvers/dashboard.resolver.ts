@@ -3,12 +3,7 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { Observable } from 'rxjs';
 import { Store } from '@ngxs/store';
 import { Generics, Issue } from '../models';
-import {
-  GetAllPageableIssuesByAssigneeAndStatus,
-  GetAllProjects,
-  GetAllUsers,
-  GetIssueStatuses,
-} from '../state/actions';
+import { GetAllPageableIssuesByAssigneeAndStatus } from '../state/actions';
 
 @Injectable()
 export class DashboardResolver implements Resolve<Issue.IssueState> {

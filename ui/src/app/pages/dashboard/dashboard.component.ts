@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { IssueState, ProjectState } from '../../@core/state';
 import { Observable } from 'rxjs';
@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
 
   selectedId: number;
 
-  constructor(private store: Store, private cdr: ChangeDetectorRef) {}
+  constructor(private store: Store) {}
 
   ngOnInit() {
     this.cols = [

@@ -12,8 +12,8 @@ import {
   UpdateIssue,
 } from './actions';
 import { IssueService } from '../services/shared';
-import { catchError, filter, tap } from 'rxjs/operators';
-import { of, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @State<Issue.IssueState>({
   name: 'IssueState',

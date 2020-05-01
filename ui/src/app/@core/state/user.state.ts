@@ -1,4 +1,4 @@
-import { Generics, Project, User } from '../models';
+import { Generics, User } from '../models';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { UserService } from '../services/shared';
 import { GetAllUsers, Login } from './actions';
