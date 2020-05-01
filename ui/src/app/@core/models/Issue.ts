@@ -11,6 +11,7 @@ export namespace Issue {
     issueStatus: IssueStatus;
     assignee: User.UserWrapper;
     project: Project.ProjectWrapper;
+    status: any;
   }
 
   export interface IssueState {
@@ -18,6 +19,9 @@ export namespace Issue {
     issuesResponse: Generics.GenericResponse<IssueWrapper>;
     issuePagination: Generics.GenericResponse<IssuePaged>;
     selectedIssue: IssueWrapper;
+    selectedIssueDetail: IssueDetail;
+    dashboardIssue: DashboardIssue;
+    issueStatuses: string[];
   }
 
   export interface IssuePaged {
@@ -58,6 +62,12 @@ export namespace Issue {
     issueStatus: IssueStatus;
     assigneeId: number;
     projectId: number;
+  }
+
+  export interface DashboardIssue {
+    openIssues: Generics.GenericResponse<IssuePaged>;
+    inProgressIssues: Generics.GenericResponse<IssuePaged>;
+    resolvedIssues: Generics.GenericResponse<IssuePaged>;
   }
 
   enum IssueStatus {

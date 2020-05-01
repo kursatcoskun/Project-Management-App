@@ -18,7 +18,7 @@ export class ProjectService {
     return this.apiService.get(`${this.PROJECT_PATH}/getAllByPagination?page=${page}&size=${itemSizePerPage}`);
   }
 
-  getAllProjects(): Observable<Generics.GenericResponse<Project.ProjectWrapper>> {
+  getAllProjects(): Observable<Generics.GenericResponse<Project.ProjectWrapper[]>> {
     return this.apiService.get(`${this.PROJECT_PATH}/getAllProjects`);
   }
 
@@ -31,7 +31,7 @@ export class ProjectService {
   }
 
   updateProject(project: Project.ProjectWrapper): Observable<Generics.GenericResponse<Project.ProjectWrapper>> {
-    return this.apiService.put(`${this.PROJECT_PATH}/UpdateProject`, project);
+    return this.apiService.put(`${this.PROJECT_PATH}/updateProject/${project.id}`, project);
   }
 
   deleteProject(id: number): Observable<Generics.GenericResponse<Project.ProjectWrapper>> {

@@ -20,7 +20,7 @@ public class Issue extends BaseEntity {
     @Column(name = "description", length = 1000)
     private String description;
 
-    @Column(name = "details", length = 4000)
+    @Column(name = "details", length = 5000)
     private String details;
 
     @Column(name = "date")

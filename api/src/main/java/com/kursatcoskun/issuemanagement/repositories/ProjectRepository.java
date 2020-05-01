@@ -12,7 +12,9 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     Project getByProjectCode(String projectCode);
 
-    Page<Project> findAll(Pageable pageable);
+    Page<Project> findAllByOrderById(Pageable pageable);
 
     List<Project> findAll(Sort sort);
+
+    List<Project> findAllByOrderById();
 }

@@ -11,7 +11,7 @@ export namespace Generics {
   export class Page {
     constructor() {
       this.page = 0;
-      this.size = 5;
+      this.size = 10;
     }
 
     size: number = 0;

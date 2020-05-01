@@ -2,7 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardResolver } from '../@core/resolvers/dashboard.resolver';
 
 const routes: Routes = [
   {
@@ -11,7 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        component: DashboardComponent,
+        loadChildren: () => import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
         path: 'project',
@@ -33,5 +33,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
+  providers: [DashboardResolver],
 })
 export class PagesRoutingModule {}

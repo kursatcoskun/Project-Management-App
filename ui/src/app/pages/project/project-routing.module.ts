@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { ProjectComponent } from './project.component';
-import { SampleResolver } from '../../@core/resolvers/sample.resolver';
 
-const routes: Routes = [{ path: '', component: ProjectComponent, resolve: { project: SampleResolver } }];
+const routes: Routes = [{ path: '', component: ProjectComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [SampleResolver],
+  providers: [],
 })
 export class ProjectRoutingModule {}

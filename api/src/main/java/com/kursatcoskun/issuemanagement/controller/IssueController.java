@@ -30,7 +30,7 @@ public class IssueController {
 
     @GetMapping("/getAllByPagination")
     @ApiOperation(value = "Get By Pagination Operation", response = UtilResponse.class)
-    public ResponseEntity<UtilResponse<TPage<IssueDto>>> getById(Pageable pageable) {
+    public ResponseEntity<UtilResponse<TPage<IssueDto>>> getAllPageable(Pageable pageable) {
         TPage<IssueDto> data = issueServiceImpl.getAllPageable(pageable);
         return ResponseEntity.ok(new UtilResponse<TPage<IssueDto>>(data, new ProcessResult("200", ResponseMessage.SUCCESS)));
     }
@@ -77,5 +77,19 @@ public class IssueController {
     public ResponseEntity<UtilResponse<List<IssueStatus>>> getIssueStatuses() {
         List<IssueStatus> data = Arrays.asList(IssueStatus.values());
         return ResponseEntity.ok(new UtilResponse<List<IssueStatus>>(data, new ProcessResult("200", ResponseMessage.SUCCESS)));
+    }
+
+    @GetMapping("/GetIssuesByProjectId/{id}")
+    @ApiOperation(value = "Get Issues By Project ID Operation", response = UtilResponse.class)
+    public ResponseEntity<UtilResponse<TPage<IssueDto>>> getIssuesByProjectId(@PathVariable(value = "id", required = true) Long id,Pageable pageable) {
+        TPage<IssueDto> issues = issueServiceImpl.getIssuesByProjectId(id,pageable);
+        return ResponseEntity.ok(new UtilResponse<TPage<IssueDto>>(issues, new ProcessResult("200", ResponseMessage.SUCCESS)));
+    }
+
+    @GetMapping("/GetIssuesByAssigneeAndStatus/{id}/{issueStatus}")
+    @ApiOperation(value = "Get Issues By Assignee ID and Issue Status Operation", response = UtilResponse.class)
+    public ResponseEntity<UtilResponse<TPage<IssueDto>>> getIssuesByProjectId(@PathVariable(value = "id", required = true) Long id,@PathVariable(value = "issueStatus",required = true) IssueStatus issueStatus,Pageable pageable) {
+        TPage<IssueDto> issues = issueServiceImpl.getIssuesByAssigneeAndIssueStatus(id,issueStatus,pageable);
+        return ResponseEntity.ok(new UtilResponse<TPage<IssueDto>>(issues, new ProcessResult("200", ResponseMessage.SUCCESS)));
     }
 }

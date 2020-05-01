@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface IssueHistoryRepository extends JpaRepository<IssueHistory,Long> {
 
-    List<IssueHistory> getIssueHistoriesByIssueOrderByDate(Issue issue);
+    List<IssueHistory> getIssueHistoriesByIssueOrderByDateDesc(Issue issue);
 }

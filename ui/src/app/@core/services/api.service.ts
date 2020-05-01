@@ -29,7 +29,7 @@ export class ApiService {
 
   put(path: string, payload): Observable<any> {
     return this.http
-      .put(environment.API_BASE_PATH + path, JSON.stringify(payload), this.httpOptions)
+      .put(environment.API_BASE_PATH + path, payload, this.httpOptions)
       .pipe(catchError(this.formatError));
   }
 

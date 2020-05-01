@@ -11,7 +11,8 @@ export class IssueService {
   private ISSUE_PATH = '/issue';
   private ISSUE_GET_BY_ID = this.ISSUE_PATH + '/getIssueById';
   private ISSUE_CREATE = this.ISSUE_PATH + '/CreateIssue';
-  private ISSUE_UPDATE = this.ISSUE_PATH + '/UpdateIssue';
+  private ISSUE_UPDATE = this.ISSUE_PATH + '/updateIssue';
+  private ISSUE_DELETE = this.ISSUE_PATH + '/deleteIssue';
   private ISSUE_GET_BY_ID_DETAILS = this.ISSUE_PATH + '/getIssueByIdWithDetails';
   private ISSUE_GET_STATUSES = this.ISSUE_PATH + '/statuses';
 
@@ -20,6 +21,25 @@ export class IssueService {
   getAllByPagination(page: number, itemSizePerPage: number): Observable<Generics.GenericResponse<Issue.IssuePaged>> {
     return this.apiService.get(`${this.ISSUE_PATH}/getAllByPagination?page=${page}&size=${itemSizePerPage}`);
   }
+
+  getIssuesByProjectIdPagination(
+    id: number,
+    page: number,
+    itemSizePerPage: number,
+  ): Observable<Generics.GenericResponse<Issue.IssuePaged>> {
+    return this.apiService.get(`${this.ISSUE_PATH}/GetIssuesByProjectId/${id}?page=${page}&size=${itemSizePerPage}`);
+  }
+
+  getIssuesByAssigneeAndStatus(
+    id: number,
+    issueStatus: string,
+    page: number,
+    itemSizePerPage: number,
+  ): Observable<Generics.GenericResponse<Issue.IssuePaged>> {
+    return this.apiService.get(`${this.ISSUE_PATH}/GetIssuesByAssigneeAndStatus/${id}/${issueStatus}?page=${page}&size=${itemSizePerPage}`);
+  }
+
+
 
   getIssueById(id: number): Observable<GenericResponse<Issue.IssueWrapper>> {
     return this.apiService.get(`${this.ISSUE_GET_BY_ID}/${id}`);
@@ -42,6 +62,6 @@ export class IssueService {
   }
 
   deleteIssue(id: number): Observable<GenericResponse<Issue.IssueWrapper>> {
-    return this.apiService.delete(`${this.ISSUE_UPDATE}/${id}`);
+    return this.apiService.delete(`${this.ISSUE_DELETE}/${id}`);
   }
 }

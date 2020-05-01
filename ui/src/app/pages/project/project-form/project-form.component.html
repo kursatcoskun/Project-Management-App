@@ -1,0 +1,13 @@
+<nb-card>
+  <nb-card-header>{{ title }}</nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="projectForm">
+      <input type="text" nbInput fullWidth formControlName="projectCode" placeholder="Project Code">
+      <input class="mt-3" type="text" nbInput fullWidth formControlName="projectName" placeholder="Project Name">
+    </form>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton status="primary" (click)="onSubmit()">{{ title | lowercase }}</button>
+    <button class="ml-3" nbButton status="danger" (click)="dismiss()">Dismiss Dialog</button>
+  </nb-card-footer>
+</nb-card>

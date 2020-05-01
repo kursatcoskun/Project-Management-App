@@ -6,7 +6,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
@@ -21,10 +21,12 @@ import {
 } from '@nebular/theme';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { IssueState, ProjectState } from './@core/state';
+import { IssueState, ProjectState, UserState } from './@core/state';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ToastrModule } from 'ngx-toastr';
+import { ErrorInterceptor, TokenInterceptor } from './@core/utils';
 
 export const createTranslateLoader = (http: HttpClient) => {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -47,7 +49,8 @@ export const createTranslateLoader = (http: HttpClient) => {
     NgxsReduxDevtoolsPluginModule.forRoot(),
     CoreModule.forRoot(),
     NgxDatatableModule,
-    NgxsModule.forRoot([ProjectState, IssueState]),
+    ToastrModule.forRoot(),
+    NgxsModule.forRoot([ProjectState, IssueState, UserState]),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -55,6 +58,14 @@ export const createTranslateLoader = (http: HttpClient) => {
         deps: [HttpClient],
       },
     }),
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

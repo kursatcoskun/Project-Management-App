@@ -53,7 +53,7 @@ public class IssueHistoryServiceImpl implements IssueHistoryService {
     @Override
     public List<IssueHistoryDto> getByIssueId(Long id) {
         Issue issue = issueRepository.getOne(id);
-        return Arrays.asList(modelMapper.map(issueHistoryRepository.getIssueHistoriesByIssueOrderByDate(issue), IssueHistoryDto[].class));
+        return Arrays.asList(modelMapper.map(issueHistoryRepository.getIssueHistoriesByIssueOrderByDateDesc(issue), IssueHistoryDto[].class));
     }
 
     @Override

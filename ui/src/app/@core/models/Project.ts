@@ -16,7 +16,7 @@ export namespace Project {
   }
   export class ProjectState {
     createProjectResponse: ProjectWrapper;
-    projectsResponse: Generics.GenericResponse<ProjectWrapper>;
+    projectsResponse: Generics.GenericResponse<ProjectWrapper[]>;
     projectPagination: Generics.GenericResponse<ProjectPaged>;
     selectedProject: ProjectWrapper;
   }

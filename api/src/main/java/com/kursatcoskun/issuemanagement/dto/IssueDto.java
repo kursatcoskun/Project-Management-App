@@ -24,4 +24,5 @@ public class IssueDto {
     private UserDto assignee;
     @ApiModelProperty(required = true, value = "Project")
     private ProjectDto project;
+    private Boolean status;
 }

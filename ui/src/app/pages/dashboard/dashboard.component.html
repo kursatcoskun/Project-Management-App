@@ -1,5 +1,89 @@
-<div class="row">
-  <nb-card class="col-md-12">
-    <nb-card-body class="text-center">WELCOME | PROJECT MANAGEMENT APP</nb-card-body>
-  </nb-card>
+<div
+  *ngIf="{
+    openIssues: openIssues$ | async,
+    progressIssues: progressIssues$ | async,
+    resolvedIssues: resolvedIssues$ | async
+  } as data"
+>
+  <div class="row">
+    <div class="col-lg-4">
+      <nb-card>
+        <nb-card-header class="text-center">My <span class="alert-primary">OPEN</span> Issues</nb-card-header>
+        <nb-card-body>
+          <ngx-datatable
+            class="bootstrap"
+            [rows]="data.openIssues?.content"
+            [loadingIndicator]="!data.openIssues"
+            [columns]="cols"
+            [columnMode]="'force'"
+            [headerHeight]="50"
+            [footerHeight]="50"
+            [rowHeight]="'auto'"
+            [externalPaging]="true"
+            [count]="data.openIssues?.totalElements"
+            [offset]="data.openIssues?.number"
+            [limit]="data.openIssues?.size"
+            (page)="setPageOPENDatatable($event)"
+          >
+          </ngx-datatable>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-lg-4">
+      <nb-card>
+        <nb-card-header class="text-center">My IN <span class="alert-warning">IN PROGRESS</span> Issues</nb-card-header>
+        <nb-card-body>
+          <ngx-datatable
+            class="bootstrap"
+            [rows]="data.progressIssues?.content"
+            [loadingIndicator]="!data.progressIssues"
+            [columns]="cols"
+            [columnMode]="'force'"
+            [headerHeight]="50"
+            [footerHeight]="50"
+            [rowHeight]="'auto'"
+            [externalPaging]="true"
+            [count]="data.progressIssues?.totalElements"
+            [offset]="data.progressIssues?.number"
+            [limit]="data.progressIssues?.size"
+            (page)="setPage($event)"
+          >
+          </ngx-datatable>
+          <ng-template #ActionTemplateProgress let-row="row" let-value="value">
+            <button class="btn btn-sm btn-primary" [routerLink]="['detail', value]">Detail</button>
+          </ng-template>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-lg-4">
+      <nb-card>
+        <nb-card-header class="text-center">My <span class="alert-success">RESOLVED</span> Issues</nb-card-header>
+        <nb-card-body>
+          <ngx-datatable
+            class="bootstrap"
+            [rows]="data.resolvedIssues?.content"
+            [loadingIndicator]="!data.resolvedIssues"
+            [columns]="cols"
+            [columnMode]="'force'"
+            [headerHeight]="50"
+            [footerHeight]="50"
+            [rowHeight]="'auto'"
+            [externalPaging]="true"
+            [count]="data.resolvedIssues?.totalElements"
+            [offset]="data.resolvedIssues?.number"
+            [limit]="data.resolvedIssues?.size"
+            (page)="setPage($event)"
+          >
+          </ngx-datatable>
+          <ng-template #ActionTemplateClosed let-row="row" let-value="value">
+            <button class="btn btn-sm btn-primary" [routerLink]="['detail', value]">Detail</button>
+          </ng-template>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
 </div>
+
+<ng-template #ActionTemplateOpen let-row="row" let-value="value">
+  <a href="pages/issue/detail/{{value}}"><button class="btn btn-sm btn-primary">Detail</button></a>
+</ng-template>

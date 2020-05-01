@@ -4,19 +4,16 @@ import com.kursatcoskun.issuemanagement.dto.ProjectDto;
 import com.kursatcoskun.issuemanagement.entities.Project;
 import com.kursatcoskun.issuemanagement.repositories.ProjectRepository;
 import com.kursatcoskun.issuemanagement.services.ProjectService;
-import com.kursatcoskun.issuemanagement.util.IMExceptionHandler;
 import com.kursatcoskun.issuemanagement.util.TPage;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -37,6 +34,7 @@ public class ProjectServiceImpl implements ProjectService {
             throw new IllegalArgumentException("Project Code Already Exist");
 
         Project p = modelMapper.map(project, Project.class);
+        p.setStatus(true);
         p = projectRepository.save(p);
         project.setId(p.getId());
         return project;
@@ -58,7 +56,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ProjectDto getById(Long id) {
         Project project = projectRepository.getOne(id);
-        if(project.getProjectCode() == null) {
+        if (project.getProjectCode() == null) {
             throw new EntityNotFoundException("Project Not Found with id: " + id);
         }
         return modelMapper.map(project, ProjectDto.class);
@@ -76,21 +74,32 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public TPage<ProjectDto> getAllPageable(Pageable pageable) {
-        Page<Project> data = projectRepository.findAll(pageable);
+        Page<Project> data = projectRepository.findAllByOrderById(pageable);
         TPage<ProjectDto> response = new TPage<ProjectDto>();
-        response.setStat(data, Arrays.asList(modelMapper.map(data.getContent(), ProjectDto[].class)));
+        response.setStat(data, Arrays.asList(modelMapper.map(data.getContent()
+                .stream()
+                .filter(project -> project.getStatus() == true)
+                .collect(Collectors.toList()), ProjectDto[].class)));
         return response;
     }
 
+
     @Override
     public Boolean delete(Long id) {
-        projectRepository.deleteById(id);
-        return true;
+        Project project = projectRepository.getOne(id);
+        project.setStatus(false);
+        project = projectRepository.save(project);
+        if (project.getStatus() == true) {
+            return Boolean.FALSE;
+        }
+        return Boolean.TRUE;
     }
 
     @Override
     public List<ProjectDto> getAll() {
-        List<Project> data = projectRepository.findAll();
+        List<Project> data = projectRepository.findAll().stream()
+                .filter(project -> project.getStatus() == true)
+                .collect(Collectors.toList());
         return Arrays.asList(modelMapper.map(data, ProjectDto[].class));
     }
 

@@ -6,12 +6,6 @@ export class CreateIssue {
   constructor(public payload: Issue.CreateIssueRequest) {}
 }
 
-export class GetAllIssues {
-  static readonly type = '[Issue] Get All Issues';
-
-  constructor() {}
-}
-
 export class GetAllPageableIssues {
   static readonly type = '[Issue] Get All Pageable Issues';
 
@@ -24,10 +18,26 @@ export class GetIssueById {
   constructor(public payload: number) {}
 }
 
-export class GetIssuesByPagination {
-  static readonly type = '[Issue] Get Issue By Pagination';
+export class GetIssueByIdWithDetails {
+  static readonly type = '[Issue] Get Issue By Id With Details';
 
-  constructor(public payload: any) {}
+  constructor(public payload: number) {}
+}
+
+export class GetIssueStatuses {
+  static readonly type = '[Issue] Get Issue Statuses';
+}
+
+export class GetAllPageableIssuesByProjectId {
+  static readonly type = '[Issue] Get All Pageable Issues By Project ID';
+
+  constructor(public payload: { id: number; page: number; itemSizePerPage: number }) {}
+}
+
+export class GetAllPageableIssuesByAssigneeAndStatus {
+  static readonly type = '[Issue] Get All Pageable Issues By Assignee And Status';
+
+  constructor(public payload: { id: number; issueStatus: string; page: number; itemSizePerPage: number }) {}
 }
 
 export class UpdateIssue {

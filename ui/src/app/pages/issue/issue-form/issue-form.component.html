@@ -1,0 +1,28 @@
+<nb-card>
+  <nb-card-header>{{ title }}</nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="issueForm">
+
+      <nb-select placeholder="Select Project" formControlName="projectId">
+        <nb-option *ngFor="let project of (projects$ | async)?.data" [value]="project.id">{{project.projectName}}/{{project.projectCode}}</nb-option>
+      </nb-select>
+
+      <nb-select class="ml-3" placeholder="Select Assignee" formControlName="assigneeId">
+        <nb-option *ngFor="let user of (users$ | async)?.data" [value]="user.id">{{user.nameSurname}}</nb-option>
+      </nb-select>
+
+      <nb-select class="ml-3" placeholder="Select Issue Status" formControlName="issueStatus">
+        <nb-option *ngFor="let status of (issueStatuses$ | async)" [value]="status">{{status}}</nb-option>
+      </nb-select>
+
+      <input class="mt-3" type="text" nbInput fullWidth formControlName="description" placeholder="Title">
+
+
+      <angular-editor class="mt-5" placeholder="You can write details..." formControlName="details" [config]="editorConfig"></angular-editor>
+    </form>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton status="primary" (click)="onSubmit()">{{ title | lowercase }}</button>
+    <button class="ml-3" nbButton status="danger" (click)="dismiss()">Dismiss Dialog</button>
+  </nb-card-footer>
+</nb-card>

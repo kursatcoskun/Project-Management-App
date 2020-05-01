@@ -7,7 +7,23 @@
     <nb-card class="col-md-12">
       <nb-card-header>{{ 'Issue List' | translate }}</nb-card-header>
       <nb-card-body>
-        <button (click)="deneme()">SET PAGE ITEM SIZE</button>
+        <div class="row">
+          <div class="col-lg-10"></div>
+          <div class="col-lg-2">
+            <button nbButton hero status="primary" (click)="openIssueFormModal()">Add Issue</button>
+          </div>
+        </div>
+        <ng-select
+          class="mt-3"
+          [items]="(projects$ | async)?.data"
+          bindLabel="projectName"
+          autofocus
+          bindValue="id"
+          [(ngModel)]="selectedId"
+          (change)="changeListType($event)"
+          (clear)="clear()"
+        >
+        </ng-select>
         <ngx-datatable
           class="bootstrap"
           [rows]="data.pageIssue?.content"
@@ -29,7 +45,8 @@
   </div>
 </div>
 
-<ng-template #ActionTemplate let-row="row">
-  <button class="btn btn-sm btn-danger">Delete</button>
-  <button class="ml-1 btn btn-sm btn-warning">Edit</button>
+<ng-template #ActionTemplate let-row="row" let-value="value">
+  <button class="btn btn-sm btn-primary" [routerLink]="['detail', value]">Detail</button>
+  <button class="ml-3 btn btn-sm btn-warning">Edit</button>
+  <button class="ml-3 btn btn-sm btn-danger" (click)="deleteIssue(value)">Delete</button>
 </ng-template>

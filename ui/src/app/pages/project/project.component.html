@@ -7,6 +7,12 @@
     <nb-card class="col-md-12">
       <nb-card-header>{{ 'Project List' | translate }}</nb-card-header>
       <nb-card-body>
+        <div class="row">
+          <div class="col-lg-10"></div>
+          <div class="col-lg-2">
+            <button nbButton hero status="primary" (click)="openAddProjectModal()">Add Project</button>
+          </div>
+        </div>
         <ngx-datatable
           class="bootstrap"
           [rows]="data.pageProject?.content"
@@ -29,8 +35,8 @@
 
 </div>
 
-<ng-template #ActionTemplate let-row="row">
-  <button class="btn btn-sm btn-danger">Delete</button>
-  <button class="ml-1 btn btn-sm btn-warning">Edit</button>
+<ng-template #ActionTemplate let-row="row" let-value="value">
+  <button class="btn btn-sm btn-warning" (click)="editProject(value)">Edit</button>
+  <button class="ml-3 btn btn-sm btn-danger" (click)="deleteProject(value)">Delete</button>
 </ng-template>
 

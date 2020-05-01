@@ -16,9 +16,9 @@ import { throwError } from 'rxjs';
   name: 'ProjectState',
   defaults: {
     createProjectResponse: {} as Project.ProjectWrapper,
-    projectsResponse: {} as Generics.GenericResponse<Project.ProjectWrapper>,
+    projectsResponse: {} as Generics.GenericResponse<Project.ProjectWrapper[]>,
     projectPagination: {} as Generics.GenericResponse<Project.ProjectPaged>,
-    selectedProject: {} as Project.ProjectWrapper,
+    selectedProject: { projectName: null, projectCode: null, id: null } as Project.ProjectWrapper,
   },
 })
 export class ProjectState {
@@ -39,6 +39,11 @@ export class ProjectState {
     return projectPagination;
   }
 
+  @Selector()
+  static getSelectedProject({ selectedProject }: Project.ProjectState) {
+    return selectedProject;
+  }
+
   @Action(CreateProject)
   createProject({ patchState }: StateContext<Project.ProjectState>, { payload }: CreateProject) {
     return this.projectService.createProject(payload).pipe(
@@ -54,10 +59,10 @@ export class ProjectState {
   }
 
   @Action(GetAllProjects)
-  getAllProjects({ getState, patchState }: StateContext<Project.ProjectState>) {
+  getAllProjects({ patchState }: StateContext<Project.ProjectState>) {
     return this.projectService.getAllProjects().pipe(
       catchError((error) => throwError(error)),
-      tap((response: Generics.GenericResponse<Project.ProjectWrapper>) => {
+      tap((response: Generics.GenericResponse<Project.ProjectWrapper[]>) => {
         if (response.processResult.message === 'SUCCESS') {
           patchState({
             projectsResponse: response,
